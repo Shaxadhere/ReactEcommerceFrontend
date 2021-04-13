@@ -3,7 +3,7 @@ import Layout from '../core/Layout'
 
 const Signup = () => (
     <Layout title="Signup" description="Signup to Node React E-Commerce App">
-        ...
+        {process.env.REACT_APP_API_URL}
     </Layout>
 )
 
