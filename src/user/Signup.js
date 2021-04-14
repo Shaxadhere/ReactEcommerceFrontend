@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import {Link} from 'react-router-dom'
 import Layout from '../core/Layout'
 import {API} from '../config'
 
@@ -83,7 +84,7 @@ const Signup = () => {
 
     const showSuccess = () => (
         <div className="alert alert-info" style={{display: success ? '' : 'none'}}>
-            New Account is created please sign in
+            New Account is created please <Link to='/signin'>Sign in</Link>
         </div>
     )
 
@@ -92,7 +93,6 @@ const Signup = () => {
             {showSuccess()}
             {showError()}
             {signUpForm()}
-            {JSON.stringify(values)}
         </Layout>
     )
 }
