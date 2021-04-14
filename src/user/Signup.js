@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import Layout from '../core/Layout'
-// import {API} from '../config'
+import {API} from '../config'
 
 const Signup = () => {
 
@@ -12,25 +12,50 @@ const Signup = () => {
         success: false
     })
 
+    const {name, email, password} = values
+
     const handleChange = name => event => {
         setValues({...values, error: false, [name]: event.target.value})
+    }
+
+    const signup = (user) => {
+        console.log(user)
+        fetch(`${API}/signup`, {
+            method: "POST",
+            headers:{
+                Accept: "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(user)
+        })
+        .then(response => {
+            return response.json()
+        })
+        .catch(err => {
+            return console.log(err)
+        })
+    }
+
+    const clickSubmit = (event) => {
+        event.preventDefault()
+        signup({name, email, password})
     }
 
     const signUpForm = () => (
         <form>
             <div className="form-group">
-                <lable htmlFor="text-muted">Name</lable>
+                <label htmlFor="text-muted">Name</label>
                 <input onChange={handleChange('name')} type="text" className="form-control" />
             </div>
             <div className="form-group">
-                <lable htmlFor="text-muted">Email</lable>
+                <label htmlFor="text-muted">Email</label>
                 <input onChange={handleChange('email')} type="email" className="form-control" />
             </div>
             <div className="form-group">
-                <lable htmlFor="text-muted">Password</lable>
+                <label htmlFor="text-muted">Password</label>
                 <input onChange={handleChange('password')} type="password" className="form-control" />
             </div>
-            <button type="button" className="btn btn-primary">Submit</button>
+            <button onClick={clickSubmit} className="btn btn-primary">Submit</button>
         </form>
     )
 
